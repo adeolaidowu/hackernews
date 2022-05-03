@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import type { NextPage } from "next";
+import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 
 const CREATE_LINK_MUTATION = gql`
@@ -12,7 +14,7 @@ const CREATE_LINK_MUTATION = gql`
   }
 `;
 
-const CreateLink = () => {
+const CreateLink: NextPage = () => {
   const [formState, setFormState] = useState({
     description: "",
     url: "",
@@ -23,6 +25,7 @@ const CreateLink = () => {
       description: formState.description,
       url: formState.url,
     },
+    onCompleted: () => Router.push("/"),
   });
   return (
     <div>
