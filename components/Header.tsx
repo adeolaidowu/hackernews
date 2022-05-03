@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { AUTH_TOKEN } from "../constants/constants";
 import Router from "next/router";
 
 const Header = () => {
-  const authToken = localStorage.getItem(AUTH_TOKEN);
+  let authToken: string | null = "";
+  //useRef()
+  useEffect(() => {
+    authToken = localStorage.getItem(AUTH_TOKEN);
+  });
+  // let authToken: string | null = "";
+  // if (typeof window !== undefined) {
+  //   authToken = localStorage.getItem(AUTH_TOKEN);
+  // }
   return (
     <div className="flex pa1 justify-between nowrap orange">
       <div className="flex flex-fixed black">

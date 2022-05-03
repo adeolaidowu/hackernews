@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FEED_QUERY } from "../pages";
 import type { NextPage } from "next";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
@@ -24,6 +25,21 @@ const CreateLink: NextPage = () => {
     variables: {
       description: formState.description,
       url: formState.url,
+    },
+    update: (cache, { data: { post } }) => {
+      const data: any = cache.readQuery({
+        query: FEED_QUERY,
+      });
+
+      console.log(data, "Data feed Type");
+      cache.writeQuery({
+        query: FEED_QUERY,
+        data: {
+          feed: {
+            links: [post, ...data.feed.links],
+          },
+        },
+      });
     },
     onCompleted: () => Router.push("/"),
   });
