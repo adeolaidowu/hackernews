@@ -19,20 +19,6 @@ const FEED_QUERY = gql`
 
 const LinkList = () => {
   const { data } = useQuery(FEED_QUERY);
-  console.log(data);
-  const linksToRender = [
-    {
-      id: "link-id-1",
-      description: "Prisma gives you a powerful database toolkit 😎",
-      url: "https://prisma.io",
-    },
-    {
-      id: "link-id-2",
-      description: "The best GraphQL client",
-      url: "https://www.apollographql.com/docs/react/",
-    },
-  ];
-
   return (
     <div>
       {data && (

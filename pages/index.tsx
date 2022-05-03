@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import CreateLink from "../components/CreateLink";
 import LinkList from "../components/LinkList";
 import styles from "../styles/Home.module.css";
 
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
 
       <div className="main">
         <LinkList />
+        <CreateLink />
       </div>
     </>
   );
