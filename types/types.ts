@@ -1,12 +1,32 @@
-import internal from "stream";
+export interface IDefinition {
+  kind: string;
+  operation?: string;
+}
 
 export interface ILink {
-  id: string;
+  id: string | number;
   description: string;
   url: string;
-  votes: [];
-  postedBy: {
-    name: string;
-  };
-  createdAt: number;
+  postedBy: IUser;
+  votes: [IVote];
+  createdAt: Date;
+}
+
+export interface IUser {
+  id: string | number;
+  name: string;
+  email: string;
+  links: ILink;
+}
+
+export interface IVote {
+  id: string | number;
+  link: ILink;
+  user: IUser;
+}
+
+export interface IFeed {
+  id?: string | number;
+  links?: [ILink];
+  count?: number;
 }

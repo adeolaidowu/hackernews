@@ -1,19 +1,10 @@
 import React, { useState } from "react";
-import { FEED_QUERY } from "../pages";
 import type { NextPage } from "next";
 import Router from "next/router";
-import { useMutation, gql } from "@apollo/client";
-
-const CREATE_LINK_MUTATION = gql`
-  mutation PostMutation($description: String!, $url: String!) {
-    post(description: $description, url: $url) {
-      id
-      createdAt
-      url
-      description
-    }
-  }
-`;
+import { useMutation } from "@apollo/client";
+import { FEED_QUERY } from "../graphql/queries";
+import { AUTH_TOKEN, LINKS_PER_PAGE } from "../constants/constants";
+import { CREATE_LINK_MUTATION } from "../graphql/mutations";
 
 const CreateLink: NextPage = () => {
   const [formState, setFormState] = useState({
@@ -27,17 +18,30 @@ const CreateLink: NextPage = () => {
       url: formState.url,
     },
     update: (cache, { data: { post } }) => {
+      const take = LINKS_PER_PAGE;
+      const skip = 0;
+      const orderBy = { createdAt: "desc" };
+
       const data: any = cache.readQuery({
         query: FEED_QUERY,
+        variables: {
+          take,
+          skip,
+          orderBy,
+        },
       });
 
-      console.log(data, "Data feed Type");
       cache.writeQuery({
         query: FEED_QUERY,
         data: {
           feed: {
             links: [post, ...data.feed.links],
           },
+        },
+        variables: {
+          take,
+          skip,
+          orderBy,
         },
       });
     },

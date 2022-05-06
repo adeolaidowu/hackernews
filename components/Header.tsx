@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AUTH_TOKEN } from "../constants/constants";
 import Router from "next/router";
@@ -14,23 +14,23 @@ const Header = () => {
   //   authToken = localStorage.getItem(AUTH_TOKEN);
   // }
   return (
-    <div className="flex pa1 justify-between nowrap orange">
-      <div className="flex flex-fixed black">
-        <Link href="/" className="no-underline black">
-          <div className="fw7 mr1">Hacker News</div>
+    <div className="w-full flex text-black justify-between bg-[#f60] items-center p-2">
+      <div className="md:flex flex-initial justify-center items-center">
+        <Link href="/top" className="cursor-pointer">
+          <div className="mr-5 text-black font-bold">Hacker News</div>
         </Link>
-        <Link href="/" className="ml1 no-underline black">
-          new
+        <Link href="/">
+          <span className="mr-1">New</span>
         </Link>
-        <div className="ml1">|</div>
-        <Link href="/search" className="ml1 no-underline black">
-          search
+        <div className="ml-1">|</div>
+        <Link href="/search">
+          <span className="ml-1">Search</span>
         </Link>
         {authToken && (
           <div className="flex">
-            <div className="ml1">|</div>
-            <Link href="/create" className="ml1 no-underline black">
-              submit
+            <div className="ml-1">|</div>
+            <Link href="/create">
+              <span className="ml-1">Submit</span>
             </Link>
           </div>
         )}
@@ -38,22 +38,21 @@ const Header = () => {
       <div className="flex flex-fixed">
         {authToken ? (
           <div
-            className="ml1 pointer black"
+            className="ml-1 cursor-pointer"
             onClick={() => {
               localStorage.removeItem(AUTH_TOKEN);
               Router.push(`/`);
             }}
           >
-            logout
+            Logout
           </div>
         ) : (
-          <Link href="/login" className="ml1 no-underline black">
-            login
+          <Link href="/login" className="ml-1">
+            Login
           </Link>
         )}
       </div>
     </div>
   );
 };
-
 export default Header;

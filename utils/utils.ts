@@ -26,7 +26,7 @@ function timeDifference(current: number, previous: number) {
   }
 }
 
-export function timeDifferenceForDate(date: number) {
+export function timeDifferenceForDate(date: Date) {
   const now = new Date().getTime();
   const updated = new Date(date).getTime();
   return timeDifference(now, updated);

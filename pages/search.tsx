@@ -31,10 +31,20 @@ const Search = () => {
   const [executeSearch, { data }] = useLazyQuery(FEED_SEARCH_QUERY);
   return (
     <>
-      <div>
-        Search
-        <input type="text" onChange={(e) => setSearchFilter(e.target.value)} />
-        <button>OK</button>
+      <div className="flex flex-col justify-center items-center mt-10">
+        <div>Search</div>
+        <input
+          className="form-input border-2 px-3 rounded mb-3"
+          type="text"
+          placeholder="search here"
+          onChange={(e) => setSearchFilter(e.target.value)}
+        />
+        <button
+          type="button"
+          className="w-30 text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-1 mr-2 mb-2"
+        >
+          OK
+        </button>
       </div>
       {data &&
         data.feed.links.map((link: any, index: number) => (
