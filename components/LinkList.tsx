@@ -34,7 +34,7 @@ const LinkList = () => {
     variables: getQueryVariables(isNewPage, page),
   });
   return (
-    <>
+    <div>
       {loading && <p>Loading...</p>}
       {error && <pre>{JSON.stringify(error, null, 2)}</pre>}
       {data && (
@@ -69,7 +69,7 @@ const LinkList = () => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 

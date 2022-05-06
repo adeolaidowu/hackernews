@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Router from "next/router";
 import { useMutation, gql } from "@apollo/client";
 import { AUTH_TOKEN } from "../constants/constants";
+//import { LOGIN_MUTATION, SIGNUP_MUTATION } from "../graphql/mutations";
 
 const SIGNUP_MUTATION = gql`
   mutation SignupMutation($email: String!, $password: String!, $name: String!) {
@@ -35,7 +36,6 @@ const Login = () => {
     onCompleted: ({ login }) => {
       alert("login done");
       localStorage.setItem(AUTH_TOKEN, login.token);
-      console.log(localStorage.getItem(AUTH_TOKEN), "Token");
       Router.push("/");
     },
   });
@@ -55,7 +55,7 @@ const Login = () => {
   return (
     <div className="flex flex-col justify-center items-center mt-10">
       <h4 className="mv3">{formState.login ? "Login" : "Sign Up"}</h4>
-      <div className="flex flex-column">
+      <div className="flex flex-col">
         {!formState.login && (
           <input
             value={formState.name}
@@ -65,6 +65,7 @@ const Login = () => {
                 name: e.target.value,
               })
             }
+            className="border-2"
             type="text"
             placeholder="Your name"
           />
@@ -98,6 +99,8 @@ const Login = () => {
         <button
           className="cursor-pointer mr-2 focus:outline-none text-white bg-green-700 font-medium rounded-lg text-sm px-5 py-1 mr-2 mt-2"
           onClick={() => {
+            console.log("try to login");
+            debugger;
             formState.login ? login() : signup();
           }}
         >

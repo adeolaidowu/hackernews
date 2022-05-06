@@ -5,32 +5,43 @@ import Router from "next/router";
 
 const Header = () => {
   let authToken: string | null = "";
-  //useRef()
-  useEffect(() => {
-    authToken = localStorage.getItem(AUTH_TOKEN);
-  });
+  // //useRef()
+  // useEffect(() => {
+  //   authToken = localStorage.getItem(AUTH_TOKEN);
+  //   console.log(authToken, "logged from header useeffect");
+  // }, []);
   // let authToken: string | null = "";
   // if (typeof window !== undefined) {
+  //   debugger;
   //   authToken = localStorage.getItem(AUTH_TOKEN);
-  // }
+  //   console.log(authToken, "logged from header window undefined");
+  const ISSERVER = typeof window === "undefined";
+  if (!ISSERVER) {
+    authToken =
+      localStorage.getItem(AUTH_TOKEN) != null
+        ? localStorage.getItem(AUTH_TOKEN)
+        : "";
+  }
   return (
     <div className="w-full flex text-black justify-between bg-[#f60] items-center p-2">
       <div className="md:flex flex-initial justify-center items-center">
         <Link href="/top" className="cursor-pointer">
-          <div className="mr-5 text-black font-bold">Hacker News</div>
+          <div className="mr-5 text-black font-bold cursor-pointer">
+            Hacker News
+          </div>
         </Link>
         <Link href="/">
-          <span className="mr-1">New</span>
+          <span className="mr-1 cursor-pointer">new</span>
         </Link>
         <div className="ml-1">|</div>
         <Link href="/search">
-          <span className="ml-1">Search</span>
+          <span className="ml-1 cursor-pointer">search</span>
         </Link>
         {authToken && (
           <div className="flex">
             <div className="ml-1">|</div>
             <Link href="/create">
-              <span className="ml-1">Submit</span>
+              <span className="ml-1 cursor-pointer">submit</span>
             </Link>
           </div>
         )}
